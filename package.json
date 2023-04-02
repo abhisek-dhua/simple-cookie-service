@@ -1,0 +1,33 @@
+{
+  "name": "simple-cookie-service",
+  "version": "1.0.0",
+  "description": "A library for front-end cookie services",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisek-dhua/simple-cookie-service.git"
+  },
+  "keywords": [
+    "cookie",
+    "simple cookie",
+    "cookie service",
+    "add edit delete cookie"
+  ],
+  "author": "Abhisek Dhua <abhisek.dhua@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhisek-dhua/simple-cookie-service/issues"
+  },
+  "homepage": "https://github.com/abhisek-dhua/simple-cookie-service#readme",
+  "devDependencies": {
+    "typescript": "^5.0.3"
+  },
+  "files": [
+    "lib/**/*"
+  ]
+}
