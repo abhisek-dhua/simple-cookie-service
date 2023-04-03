@@ -27,31 +27,44 @@ var setCookie = cookie.setItem("token", "your_token");
 // key was "token" and value was "your_token"
 ```
 
-#### Options Object
+## Options Object
 
 `cookie.setItem` accepts these properties as the options object.
 
-##### expires
+#### Expires
 
 Specifies the `Date` object to be the value for the [`Expires` `Set-Cookie` attribute][rfc-6265-5.2.1].
 By default, no expiration is set, and most clients will consider this a "non-persistent cookie" and
 will delete it on a condition like exiting a web browser application.
-#You can use number for day or Date object.#
+
+**note** You can use number for day or Date object.
 
 ```js
 const date = new Date();
 date.setDate(date.getDate() + 1); // expire on next date = 1 day expiry
-cookie.setItem("token", "your_token", 365, "/", "Lax");
+cookie.setItem("token", "your_token", {
+  sameSite: "Lax",
+  secure: true,
+  expires: 365,
+  // domain: 'xyz.com',
+  // path: '/',
+});
 or;
-cookie.setItem("token", "your_token", date, "/", "Lax");
+cookie.setItem("token", "your_token", {
+  sameSite: "Lax",
+  secure: true,
+  expires: date,
+  // domain: 'xyz.com',
+  // path: '/',
+});
 ```
 
-##### path
+#### Path :
 
 Specifies the value for the [`Path` `Set-Cookie` attribute][rfc-6265-5.2.4]. By default, the path
 is considered the ["default path"][rfc-6265-5.1.4].
 
-##### sameSite
+#### SameSite :
 
 Specifies the `boolean` or `string` to be the value for the [`SameSite` `Set-Cookie` attribute][rfc-6265bis-09-5.4.7].
 
@@ -67,12 +80,12 @@ More information about the different enforcement levels can be found in
 **note** This is an attribute that has not yet been fully standardized, and may change in the future.
 This also means many clients may ignore this attribute until they understand it.
 
-##### domain
+#### Domain :
 
 Specifies the value for the [`Domain` `Set-Cookie` attribute][rfc-6265-5.2.3]. By default, no
 domain is set, and most clients will consider the cookie to apply to only the current domain.
 
-##### secure
+#### Secure :
 
 Specifies the `boolean` value for the [`Secure` `Set-Cookie` attribute][rfc-6265-5.2.5]. When truthy,
 the `Secure` attribute is set, otherwise it is not. By default, the `Secure` attribute is not set.
@@ -96,24 +109,36 @@ import { SimpleCookieService } from "simple-cookie-service";
 // JavaScript Use Case
 yourFunction = () => {
   // here 365 = 365 days expire you can use Date also
-  cookie.setItem("token", "your_token", 365, "/", "Lax"); // set cookie value
+  cookie.setItem("token", "your_token", {
+    sameSite: "Lax",
+    secure: true,
+    expires: 365,
+    // domain: 'xyz.com',
+    // path: '/',
+  }); // set cookie value
   console.log(cookie.getItem("token")); // get cookie value
   setTimeout(() => {
     cookie.removeItem("token"); // delete cookie value
   }, 3000);
 };
-yourFunction();
+yourFunction(); // call your function
 
 // TypeScript Use Case
 yourFunction = () => {
   // here 365 = 365 days expire you can use Date also
-  SimpleCookieService.setItem("token", "your_token", 365, "/", "Lax"); // set cookie value
+  SimpleCookieService.setItem("token", "your_token", {
+    sameSite: "Lax",
+    secure: true,
+    expires: 365,
+    // domain: 'xyz.com',
+    // path: '/',
+  }); // set cookie value
   console.log(SimpleCookieService.getItem("token")); // get cookie value
   setTimeout(() => {
     SimpleCookieService.removeItem("token"); // delete cookie value
   }, 3000);
 };
-yourFunction();
+yourFunction(); // call your function
 ```
 
 ## References
