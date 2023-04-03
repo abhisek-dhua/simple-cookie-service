@@ -4,69 +4,82 @@ export interface ICookieOptions {
   path?: string;
   domain?: string;
   secure?: boolean;
-  sameSite?: SameSite;
+  sameSite?: boolean | SameSite;
 }
 
 export class SimpleCookieService {
   /**
    * * Set cookie with different cookie option
    *
-   * @param name
-   * @param value
-   * @param expires
-   * @param path
-   * @param sameSite
-   * @param domain
-   * @param secure
+   * @param name string
+   * @param value string
+   * @param options
+   * * {expires, path, domain, secure, sameSite}
    *
    * @developer Abhisek Dhua
    */
-  static setValue(
-    name: string,
-    value: string,
-    expires?: ICookieOptions["expires"],
-    path?: ICookieOptions["path"],
-    sameSite?: SameSite,
-    domain?: ICookieOptions["domain"],
-    secure?: ICookieOptions["secure"]
-  ): void {
+  static setItem(name: string, value: string, options?: ICookieOptions): void {
+    // calculate expiry date if available
     let date = new Date();
-
-    if (typeof expires == "number") {
-      date.setDate(date.getDate() + expires);
-    } else if (expires !== undefined) {
-      date = expires as Date;
+    if (options !== undefined && typeof options.expires == "number") {
+      date.setDate(date.getDate() + options.expires);
+    } else if (options !== undefined && options.expires !== undefined) {
+      date = options?.expires as Date;
     }
-    document.cookie = `${name}=${value}; expires=${
-      !!expires ? date.toUTCString() : "Session"
-    }; path=${path ? path : "/"}; SameSite=${sameSite ? sameSite : "None"}; ${
-      domain ? "domain=" + domain + ";" : ""
-    } ${secure ? "Secure;" : ""}  `;
+    // add cookie depending on options
+    document.cookie = `${name}=${value}${
+      !!options && Object.keys(options).length
+        ? `${
+            options.expires !== undefined
+              ? `; expires=${date.toUTCString()}`
+              : ""
+          }${!!options.path ? `; path=${options.path}` : ""}${
+            options.sameSite !== undefined
+              ? `; SameSite=${options.sameSite}`
+              : ""
+          }${!!options.domain ? `; domain=${options.domain}` : ""}${
+            options.secure ? `; Secure` : ""
+          }`
+        : ""
+    }`;
   }
 
   /**
    * * Get cookie value by key name
    *
-   * @param key
-   * @returns value
+   * @param key string
+   * @returns cookie value
    *
    * @developer Abhisek Dhua
    */
-  static getValue(key: string): string | undefined {
+  static getItem(key: string): string | undefined {
     return document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(key))
+      .split(";")
+      .find((row) => row.trim().startsWith(key))
       ?.split("=")[1];
   }
 
   /**
    * * Delete cookie by key name
    *
-   * @param key
+   * @param key string
+   * @param options
+   * * {expires, path, domain, secure, sameSite}
    *
    * @developer Abhisek Dhua
    */
-  static delete(key: string) {
-    document.cookie = key + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  static removeItem(key: string, options?: ICookieOptions) {
+    document.cookie = `${key}=; Expires=Thu, 01 Jan 1970 00:00:01 GMT;${
+      !!options && Object.keys(options).length
+        ? `${!!options.path ? `; path=${options.path}` : ""}${
+            options.sameSite !== undefined
+              ? `; SameSite=${options.sameSite}`
+              : ""
+          }${!!options.domain ? `; domain=${options.domain}` : ""}${
+            options.secure ? `; Secure` : ""
+          }`
+        : ""
+    }`;
+    // document.cookie = key + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 }

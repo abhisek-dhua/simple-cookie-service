@@ -1,6 +1,6 @@
 {
   "name": "simple-cookie-service",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A library for front-end cookie services",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,6 +16,7 @@
     "cookie",
     "simple cookie",
     "cookie service",
+    "cookie handler",
     "add edit delete cookie"
   ],
   "author": "Abhisek Dhua <abhisek.dhua@gmail.com>",
