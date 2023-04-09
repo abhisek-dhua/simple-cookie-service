@@ -18,7 +18,7 @@ export class SimpleCookieService {
    *
    * @developer Abhisek Dhua
    */
-  setItem(name: string, value: string, options?: ICookieOptions): void {
+  static setItem(name: string, value: string, options?: ICookieOptions): void {
     // calculate expiry date if available
     let date = new Date();
     if (options !== undefined && typeof options.expires == "number") {
@@ -52,7 +52,7 @@ export class SimpleCookieService {
    *
    * @developer Abhisek Dhua
    */
-  getItem(key: string): string | undefined {
+  static getItem(key: string): string | undefined {
     return document.cookie
       .split(";")
       .find((row) => row.trim().startsWith(key))
@@ -68,7 +68,7 @@ export class SimpleCookieService {
    *
    * @developer Abhisek Dhua
    */
-  removeItem(key: string, options?: ICookieOptions) {
+  static removeItem(key: string, options?: ICookieOptions) {
     document.cookie = `${key}=; Expires=Thu, 01 Jan 1970 00:00:01 GMT;${
       !!options && Object.keys(options).length
         ? `${!!options.path ? `; path=${options.path}` : ""}${

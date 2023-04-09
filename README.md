@@ -102,29 +102,10 @@ to prompt a user for their name and display it back on future visits.
 
 ```js
 // For JavaScript & TypeScript Project
+// Access direct from class import
 import { SimpleCookieService } from "simple-cookie-service";
 
-// For Class base project
-constructor(private cookie:SimpleCookieService){}
-
-// If use dependency injection in constructor
-yourFunction = () => {
-  // here 365 = 365 days expire you can use Date also
-  this.cookie.setItem("token", "your_token", {
-    sameSite: "Lax",
-    secure: true,
-    expires: 365,
-    // domain: 'xyz.com',
-    // path: '/',
-  }); // set cookie value
-  console.log(this.cookie.getItem("token")); // get cookie value
-  setTimeout(() => {
-    this.cookie.removeItem("token"); // delete cookie value
-  }, 3000);
-};
-yourFunction(); // call your function
-
-// You can also call like this
+// Set, get and remove cookie from your method
 yourFunction = () => {
   // here 365 = 365 days expire you can use Date also
   SimpleCookieService.setItem("token", "your_token", {
