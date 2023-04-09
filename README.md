@@ -13,8 +13,10 @@ $ npm install simple-cookie-service
 ## API
 
 ```js
-var cookie = require("simple-cookie-service");
+import { SimpleCookieService } from "simple-cookie-service";
 ```
+
+**note** This package is ESM only, node 12+ needed to use it and must be imported instead of require.
 
 ### cookie.setItem(name, value, options: { expires, path, sameSite, domain, secure})
 
@@ -22,7 +24,7 @@ setItem a cookie name-value pair into a `Set-Cookie` header string. The `name` a
 name for the cookie, the `value` argument is the value to set the cookie, and provide options as object.
 
 ```js
-var setCookie = cookie.setItem("token", "your_token");
+SimpleCookieService.setItem("token", "your_token");
 // token=your_token
 // key was "token" and value was "your_token"
 ```
@@ -42,7 +44,7 @@ will delete it on a condition like exiting a web browser application.
 ```js
 const date = new Date();
 date.setDate(date.getDate() + 1); // expire on next date = 1 day expiry
-cookie.setItem("token", "your_token", {
+SimpleCookieService.setItem("token", "your_token", {
   sameSite: "Lax",
   secure: true,
   expires: 365,
@@ -50,7 +52,7 @@ cookie.setItem("token", "your_token", {
   // path: '/',
 });
 or;
-cookie.setItem("token", "your_token", {
+SimpleCookieService.setItem("token", "your_token", {
   sameSite: "Lax",
   secure: true,
   expires: date,
@@ -99,31 +101,30 @@ The following example uses this module in conjunction with the Node.js core HTTP
 to prompt a user for their name and display it back on future visits.
 
 ```js
-// For JavaScript Project
-var cookie = require("simple-cookie-service");
-// For TypeScript Project
-// Import direct on your component / function page
-// No need to import in app.module or common.module page
+// For JavaScript & TypeScript Project
 import { SimpleCookieService } from "simple-cookie-service";
 
-// JavaScript Use Case
+// For Class base project
+constructor(private cookie:SimpleCookieService){}
+
+// If use dependency injection in constructor
 yourFunction = () => {
   // here 365 = 365 days expire you can use Date also
-  cookie.setItem("token", "your_token", {
+  this.cookie.setItem("token", "your_token", {
     sameSite: "Lax",
     secure: true,
     expires: 365,
     // domain: 'xyz.com',
     // path: '/',
   }); // set cookie value
-  console.log(cookie.getItem("token")); // get cookie value
+  console.log(this.cookie.getItem("token")); // get cookie value
   setTimeout(() => {
-    cookie.removeItem("token"); // delete cookie value
+    this.cookie.removeItem("token"); // delete cookie value
   }, 3000);
 };
 yourFunction(); // call your function
 
-// TypeScript Use Case
+// You can also call like this
 yourFunction = () => {
   // here 365 = 365 days expire you can use Date also
   SimpleCookieService.setItem("token", "your_token", {
