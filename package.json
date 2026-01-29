@@ -1,11 +1,16 @@
 {
   "name": "simple-cookie-service",
-  "version": "1.2.1",
-  "description": "A library for front-end cookie services",
+  "version": "3.0.0",
+  "description": "A universal cookie management library for browsers, Node.js, and all major frontend frameworks.",
   "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
+  "exports": {
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.js"
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/index.ts --dts --format esm,cjs --outDir lib",
     "prepare": "npm run build"
   },
   "repository": {
@@ -17,17 +22,29 @@
     "simple cookie",
     "cookie service",
     "cookie handler",
-    "add edit delete cookie"
+    "cookie manager",
+    "cookie management",
+    "add edit delete cookie",
+    "universal",
+    "nodejs",
+    "browser",
+    "framework-agnostic",
+    "typescript"
   ],
   "author": "Abhisek Dhua <abhisek.dhua@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/abhisek-dhua/simple-cookie-service/issues"
   },
   "homepage": "https://github.com/abhisek-dhua/simple-cookie-service#readme",
   "devDependencies": {
+    "tsup": "^8.5.0",
     "typescript": "^5.0.3"
   },
+  "engines": {
+    "node": ">=12.7.0"
+  },
+  "sideEffects": false,
   "files": [
     "lib/**/*"
   ]
