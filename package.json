@@ -1,6 +1,6 @@
 {
   "name": "simple-cookie-service",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A universal cookie management library for browsers, Node.js, and all major frontend frameworks.",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -29,7 +29,16 @@
     "nodejs",
     "browser",
     "framework-agnostic",
-    "typescript"
+    "typescript",
+    "react",
+    "vue",
+    "angular",
+    "svelte",
+    "nextjs",
+    "nuxt",
+    "remix",
+    "solidjs",
+    "preact"
   ],
   "author": "Abhisek Dhua <abhisek.dhua@gmail.com>",
   "license": "MIT",

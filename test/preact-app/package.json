@@ -1,0 +1,19 @@
+{
+  "name": "preact-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.25.0",
+    "simple-cookie-service": "file:../.."
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.0",
+    "vite": "^6.0.0"
+  }
+}
